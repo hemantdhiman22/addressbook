@@ -25,7 +25,7 @@ pipeline{
          // Stage3 : artifacts to nexus
         stage ('publish to nexus'){
             steps {
-                nexusArtifactUploader artifacts: [[artifactId: 'addressbook', classifier: '', file: 'target/addressbook.war', type: 'war']], credentialsId: '2', groupId: 'com.edurekademo.tutorial', nexusUrl: '10.0.151.68:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'addressbook-SNAPSHOT', version: '2.1'
+                nexusArtifactUploader artifacts: [[artifactId: 'addressbook', classifier: '', file: 'target/addressbook.war', type: 'war']], credentialsId: '2', groupId: 'com.edurekademo.tutorial', nexusUrl: '10.0.151.68:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'addressbook-SNAPSHOT', version: '2.0.1'
             }
         }
     }
