@@ -54,7 +54,7 @@ pipeline{
         // Stage4 : deploying
         stage ('deploying'){
             steps {
-                sh 'ansible-playbook /home/admin/ansible/playbooks/download-artifacts.yml -i  /home/admin/ansible/playbooks/inventory    '
+                sh 'ansible-playbook /home/admin/ansible/playbooks/download-artifacts.yml -i  /home/admin/ansible/inventory'
             }
         }
     }
