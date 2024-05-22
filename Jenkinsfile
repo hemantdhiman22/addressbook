@@ -31,6 +31,10 @@ pipeline{
          // Stage3 : artifacts to nexus
         stage ('publish to nexus'){
             steps {
+                script{
+                
+                def NexusRepo = Version.endsWith("SNAPSHOT") ? "addressbook-SNAPSHOT" : "addressbook-RELEASE"
+
                 nexusArtifactUploader artifacts: 
                 [[artifactId: "${ArtifactId}", 
                 classifier: '', 
@@ -41,8 +45,9 @@ pipeline{
                 nexusUrl: '10.0.151.68:8081', 
                 nexusVersion: 'nexus3', 
                 protocol: 'http', 
-                repository: 'addressbook-RELEASE',
+                repository: "${NexusRepo}",
                 version: "${Version}"
+                }
             }
         }
     }
