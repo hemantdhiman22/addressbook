@@ -20,11 +20,24 @@ pipeline{
             }
         }
 
-        // Stage2 : Testing
-        stage ('Test'){
+        // Stage2 : deregister targets form target group AWS
+        stage ('deregister targets'){
             steps {
-                echo ' testing......'
-
+                sshPublisher(publishers: 
+                [sshPublisherDesc(
+                    configName: 'ansible-server', 
+                    transfers: [
+                        sshTransfer(
+                            cleanRemote: false, 
+                            execCommand: 'ansible-playbook  /home/admin/ansible/playbooks/target-deregistration.yml -i /home/admin/ansible/inventory', 
+                            execTimeout: 120000, 
+                        )
+                    ], 
+                    usePromotionTimestamp: false, 
+                    useWorkspaceInPromotion: false, 
+                    verbose: true)
+                    ]
+                )
             }
         }
 
@@ -71,5 +84,27 @@ pipeline{
                 )
             }
         }
+
+        // Stage5 : register targets form target group AWS
+        stage ('register targets'){
+            steps {
+                sshPublisher(publishers: 
+                [sshPublisherDesc(
+                    configName: 'ansible-server', 
+                    transfers: [
+                        sshTransfer(
+                            cleanRemote: false, 
+                            execCommand: 'ansible-playbook  /home/admin/ansible/playbooks/target-registration.yml -i /home/admin/ansible/inventory', 
+                            execTimeout: 120000, 
+                        )
+                    ], 
+                    usePromotionTimestamp: false, 
+                    useWorkspaceInPromotion: false, 
+                    verbose: true)
+                    ]
+                )
+            }
+        }
+        
     }
 }
