@@ -54,7 +54,21 @@ pipeline{
         // Stage4 : deploying
         stage ('deploying'){
             steps {
-                sh 'ansible-playbook /home/admin/ansible/playbooks/download-artifacts.yml -i  /home/admin/ansible/inventory'
+                sshPublisher(publishers: 
+                [sshPublisherDesc(
+                    configName: 'ansible-server', 
+                    transfers: [
+                        sshTransfer(
+                            cleanRemote: false, 
+                            execCommand: 'ansible-playbook  /home/admin/ansible/playbooks/download-artifacts.yml -i /home/admin/ansible/inventory', 
+                            execTimeout: 120000, 
+                        )
+                    ], 
+                    usePromotionTimestamp: false, 
+                    useWorkspaceInPromotion: false, 
+                    verbose: true)
+                    ]
+                )
             }
         }
     }
