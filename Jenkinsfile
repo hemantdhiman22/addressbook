@@ -15,11 +15,11 @@ pipeline{
             }
         }
 
-         // Stage3 : artifacts to nexus
+         // Stage3 : artifacts to AWS S3
         stage ('publish to AWS S3'){
             steps {
                 withAWS(region:'ap-south-1', credentials:'cicdApp'){
-                s3Upload(bucket:"cicdapp", workingDir:'target', includePathPattern:'**/*'); // pick your jar or whatever you need
+                s3Upload(bucket:"cicdapp", workingDir:'target', includePathPattern:'**/*.war'); 
             }
             }
         }
