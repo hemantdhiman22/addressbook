@@ -1,0 +1,9 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /opt/tomcat/webapps/ROOT
+hooks:
+  AfterInstall:
+    - location: scripts/afterDeploy.sh
+      timeout: 120
