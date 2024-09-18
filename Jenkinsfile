@@ -14,14 +14,11 @@ pipeline{
                 sh 'mvn clean install package'
             }
         }
-
-         // Stage3 : artifacts to AWS S3
-        stage ('publish to AWS S3'){
-            steps {
-                withAWS(region:'ap-south-1', credentials:'cicdApp'){
-                s3Upload(bucket:"cicdapp", workingDir:'target', includePathPattern:'**/*.war'); 
-            }
-            }
+        // stage 2: codeDeploy
+        stage('codedeploy'){
+          steps {
+            step([$class: 'AWSCodeDeployPublisher', applicationName: 'cicdApp', deploymentGroupAppspec: false, deploymentGroupName: 'cicdAppDeploymentGroup', excludes: '', iamRoleArn: '', includes: 'target/*.war', proxyHost: '', proxyPort: 0, region: 'ap-south-1', s3bucket: 'cicdapp', s3prefix: '', subdirectory: '', versionFileName: '', waitForCompletion: false])
+           }
         }
         
     }
