@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo sh /opt/tomcat/bin/startup.sh
+sudo sh /opt/tomcat9/bin/startup.sh
