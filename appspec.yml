@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /target/addressbook.war
-    destination: /opt/tomcat/webapps/
+    destination: /opt/tomcat9/webapps/
 hooks:
   AfterInstall:
     - location: scripts/afterDeploy.sh
