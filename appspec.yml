@@ -7,9 +7,6 @@ hooks:
   BeforeInstall:
     - location: scripts/serviceStop.sh
       timeout: 120
-  AfterInstall:
-    - location: scripts/afterInstall.sh
-      timeout: 120
   ApplicationStart:
     - location: scripts/serviceStart.sh
       timeout: 120
