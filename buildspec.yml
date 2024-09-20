@@ -9,10 +9,8 @@ phases:
   build:
     commands:
        - mvn clean install package
-       - mv target/addressbook.war  addressbook.war
 artifacts:
-  type: zip
   files:
-    - 'addressbook.war'
-    - "scripts/*"
-    - 'appspec.yml'
+    - target/addressbook.war
+    - scripts/serviceStop.sh
+    - scripts/serviceStart.sh
