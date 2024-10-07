@@ -1,4 +1,4 @@
-FROM maven:3.9.9 as maven
+FROM public.ecr.aws/docker/library/maven:amazoncorretto  as maven
 LABEL COMPANY="Addressbook"
 LABEL MAINTAINER="support@addressbook.com"
 LABEL APPLICATION="addressbook"
@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 COPY . /usr/src/app
 RUN mvn package 
 
-FROM tomcat:8.5-jdk15-openjdk-oracle
+FROM public.ecr.aws/docker/library/tomcat:8.5-jdk15-openjdk-oracle
 #ARG TOMCAT_FILE_PATH=/docker 
 	
 #Data & Config - Persistent Mount Point
