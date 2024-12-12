@@ -5,7 +5,7 @@ FROM openjdk:8-jdk-slim
 WORKDIR /app
 
 # Copy the built JAR file into the container
-COPY target/addressbook.jar app.jar
+COPY addressbook/target/addressbook.war app.jar
 
 # Expose the application's default port (modify if needed)
 EXPOSE 8080
