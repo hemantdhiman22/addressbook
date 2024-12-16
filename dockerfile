@@ -1,15 +1,14 @@
-# Use OpenJDK 8 as a parent image
-FROM openjdk:8-jdk-slim
+# Use an official Tomcat image as the base image
+FROM tomcat:9-jdk8-temurin
 
+# Set the working directory inside the container (optional)
+WORKDIR /usr/local/tomcat
 
-# Set the working directory inside the container
-WORKDIR /app
+# Copy the WAR file to the Tomcat webapps directory
+COPY target/addressbook.war webapps/addressbook.war
 
-# Copy the built JAR file into the container
-COPY target/addressbook.war app.jar
-
-# Expose the application's default port (modify if needed)
+# Expose the default Tomcat port
 EXPOSE 8080
 
-# Run the JAR file
-CMD ["java", "-jar", "app.jar"]
+# Start Tomcat
+CMD ["catalina.sh", "run"]
