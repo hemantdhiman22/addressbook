@@ -56,14 +56,14 @@ jobs:
       - name: Fill in the new image ID in the Amazon ECS task definition
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: arn:aws:ecs:${{ secrets.AWS_REGION }}:${{ secrets.AWS_ACCOUNT_ID }}:task-definition/myApp
+          task-definition: .aws/task-defination.json
           container-name: ${{ secrets.CONTAINER_NAME }}
           image: ${{ needs.build.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
-          task-definition: arn:aws:ecs:${{ secrets.AWS_REGION }}:${{ secrets.AWS_ACCOUNT_ID }}:task-definition/myApp
+          task-definition: .aws/task-defination.json
           service: ${{ secrets.ECS_SERVICE }}
           cluster: ${{ secrets.ECS_CLUSTER }}
           wait-for-service-stability: true
