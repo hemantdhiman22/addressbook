@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs: 
-      image: ${{ steps.build-image.outputs.image }}
+      image: ${{ steps.publish.outputs.build-image.image }}
     steps:
     - name: code checkout
       uses: actions/checkout@v4
@@ -25,9 +25,9 @@ jobs:
     - name: Build Docker Image
       id: build-image
       run: |
-        image=${{ secrets.DOCKER_USERNAME }}/addressbook:latest
+        IMAGE=${{ secrets.DOCKER_USERNAME }}/addressbook:latest
         docker build -t $image .
-        echo "image=$image" >> $GITHUB_OUTPUT
+        echo 'image=$IMAGE' >> $GITHUB_OUTPUT
 
     - name: Push Docker Image to Docker Hub
       env:
@@ -38,7 +38,7 @@ jobs:
         docker push ${{ secrets.DOCKER_USERNAME }}/addressbook:latest
   
   deploy:
-    needs: "build"
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: code-checkout
