@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs: 
-      image: ${{ steps.publish.outputs.build-image.image }}
+      image: ${{ steps.build-image.outputs.image }}
     steps:
     - name: code checkout
       uses: actions/checkout@v4
@@ -52,7 +52,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
       - name: echo image name
         run : echo "${{ needs.build.outputs.image }}"
-        
+
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
