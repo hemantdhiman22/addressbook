@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs: 
+      image: ${{ steps.build-image.outputs.image }}
     steps:
     - name: code checkout
       uses: actions/checkout@v4
@@ -26,6 +28,7 @@ jobs:
         image=${{ secrets.DOCKER_USERNAME }}/addressbook:latest
         docker build -t $image .
         echo "image=$image" >> $GITHUB_OUTPUT
+
     - name: Push Docker Image to Docker Hub
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
