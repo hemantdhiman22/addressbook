@@ -27,7 +27,7 @@ jobs:
       run: |
         IMAGE=${{ secrets.DOCKER_USERNAME }}/addressbook:latest
         docker build -t $IMAGE .
-        echo 'image=${{ secrets.DOCKER_USERNAME }}/addressbook:latest' >> $GITHUB_OUTPUT
+        echo "image=$IMAGE" >> $GITHUB_OUTPUT
 
     - name: Push Docker Image to Docker Hub
       env:
